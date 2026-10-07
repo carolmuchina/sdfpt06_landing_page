@@ -45,14 +45,14 @@ function shoppingCart(){
 
     }
 
-    //reducing the quantity 
-    function reduceQuantity(name){
+    //reducing the quantity by one or multiple
+    function reduceQuantity(name, amount = 1){
         const item_to_be_reduced = cart.find(product => {
           // {name,price , quantity}
           return product.name === name  // returned as the product {}
         }) 
         if(item_to_be_reduced){
-            item_to_be_reduced.quantity--;  // reducees by 1 : reduces by multiplies ?? 
+            item_to_be_reduced.quantity -= amount;  // reducees by 1 : reduces by multiplies ?? 
                // validation 
         // if quantity reaches 0 then remove item 
             if(item_to_be_reduced.quantity === 0){
@@ -63,8 +63,10 @@ function shoppingCart(){
 
     // function to filter : search item in cart  // 
     // function searchCart(){
-
-    // }
+     function searchCart(name) {
+        // use filter to search the cart for an item by name
+        return cart.filter(product => product.name ===name);
+     }
 
     // get total 
     function getTotal(){
@@ -90,7 +92,8 @@ function shoppingCart(){
          removeItem,
          reduceQuantity,
          getTotal,
-         viewCart
+         viewCart,
+         searchCart
     }
 
 }
@@ -101,7 +104,8 @@ const finalCart = shoppingCart()
 finalCart.addItem("MousePad", 1000, 3)
 finalCart.addItem("Keyboard", 3000, 3)
 // reduce quantity 
-finalCart.reduceQuantity("MousePad")
+finalCart.reduceQuantity("MousePad", 2)
 finalCart.removeItem("Keyboard")
 finalCart.getTotal()
 finalCart.viewCart()
+console.log(finalCart.searchCart("MousePad"))
